@@ -1,0 +1,35 @@
+.Container{
+    width: 100%;
+    height: 10rem;
+    background-color: #221f29;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+
+    h1{
+        color: white;
+        font-size: 3rem;
+        font-family:  Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+   ul {
+        display: flex;
+        li{
+            list-style: none;
+            margin: 0 1rem;
+            a{
+                color: #fff;
+                text-decoration: none;
+                transition: 0.5s;
+            }
+
+        }
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .Container{
+        flex-direction: column;
+    }
+}
