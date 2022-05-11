@@ -6,7 +6,7 @@ Linkedin: https://www.linkedin.com/in/denner-bernardes/
 
 ---
 
-## A principal ideia aqui é que você consiga diminuir url grandes para mais simples e amigavel.
+## A principal ideia aqui é que você consiga diminuir URL grandes para mais simples e amigável.
 
 ---
 
