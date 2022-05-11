@@ -1,7 +1,9 @@
 import axios from "axios";
 
 describe("testando chamadas a api", () => {
-  const api = "https://url-short-blue.vercel.app/api/api";
+  const api = process.env.NEXT_PUBLIC_HOME
+    ? process.env.NEXT_PUBLIC_HOME
+    : "https://url-short-blue.vercel.app/api/api";
   test("passar string incorreta deve retorna erro", async () => {
     const chamada = await axios.post(`${api}`, {
       url: "google.com.br/",
