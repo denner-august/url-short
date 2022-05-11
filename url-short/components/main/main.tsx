@@ -23,9 +23,9 @@ export function Main() {
       return AlertDialog(propriedades);
     }
 
-    const api = process.env.PRODUCTION
-      ? process.env.PRODUCTION
-      : "http://localhost:3000/api/api";
+    const api = process.env.HOME
+      ? process.env.HOME
+      : "https://url-short-blue.vercel.app/api/api";
 
     const chamada = await axios.post(`${api}`, {
       url: LongUrl,
