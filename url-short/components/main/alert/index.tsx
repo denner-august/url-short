@@ -1,5 +1,15 @@
-import Swal from "sweetalert2";
+import Swal, { SweetAlertIcon } from "sweetalert2";
 
-export function AlertDialog() {
-  return Swal.fire("Digite uma url primeiro", "", "error");
+interface AlertProps {
+  titulo: string;
+  texto: string;
+  tipo: SweetAlertIcon;
+}
+
+export function AlertDialog(propriedades: AlertProps) {
+  return Swal.fire(
+    `${propriedades.titulo}`,
+    `${propriedades.texto}`,
+    `${propriedades.tipo}`
+  );
 }

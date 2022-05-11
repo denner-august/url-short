@@ -1,40 +1,74 @@
 import { Button } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { AlertDialog } from "./alert";
-import { UseFetchUrl } from "../../hooks/swr";
 import copy from "copy-to-clipboard";
 import style from "./style.module.scss";
 import axios from "axios";
+import { SweetAlertIcon } from "sweetalert2";
 
 export function Main() {
   const [LongUrl, setLongUrl] = useState("");
-  const [shortUrl, setShrotUrl] = useState("");
+  const [shortUrl, setShort] = useState("");
 
   async function transformShortUrl(value: string) {
     if (value === "") {
-      return AlertDialog();
+      const propriedades = {
+        titulo: "Digite uma url primeiro",
+        texto: "",
+        tipo: "error" as SweetAlertIcon,
+      };
+
+      setShort("digite uma url valida");
+      return AlertDialog(propriedades);
     }
 
-    // const chamada = await UseFetchUrl(LongUrl);
-    //   const chamada = await axios.post(`http://localhost:3000/${LongUrl}`);
+    const chamada = await axios.post(`http://localhost:3000/api/api`, {
+      url: LongUrl,
+    });
 
-    //   setShrotUrl(chamada);
-    //   copy(chamada);
+    if (chamada.data === "Url inválida") {
+      setLongUrl("digite uma url válida");
+      setShort("Url inválida");
+
+      const errorUrl = {
+        titulo: "Url inválida",
+        texto: ``,
+        tipo: "error" as SweetAlertIcon,
+      };
+
+      return AlertDialog(errorUrl);
+    }
+
+    setShort(chamada.data);
+    copy(chamada.data);
+
+    const confirmaçao = {
+      titulo: "Url Copiada",
+      texto: `${chamada.data}`,
+      tipo: "success" as SweetAlertIcon,
+    };
+
+    return AlertDialog(confirmaçao);
   }
 
   return (
     <main className={style.Container}>
       <span>
         <Input
+          value={LongUrl}
           background="white"
-          onChange={(value) => setLongUrl(value.target.value)}
+          onChange={(value: ChangeEvent<HTMLInputElement>) =>
+            setLongUrl(value.target.value)
+          }
           placeholder="Digite sua url aqui"
         />
 
         <Input
-          defaultValue={shortUrl}
-          onChange={() => setShrotUrl(shortUrl)}
+          value={shortUrl}
+          onChange={(value: ChangeEvent<HTMLInputElement>) =>
+            setShort(shortUrl)
+          }
           background="white"
           placeholder="Url Encurtada"
         />

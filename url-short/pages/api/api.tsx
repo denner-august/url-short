@@ -7,6 +7,10 @@ export default async function urlshort(
 ) {
   const { url } = req.body;
   if (req.method === "POST") {
+    if (!url.includes("https://www.")) {
+      return res.json("Url inválida");
+    }
+
     const chamada = await axios({
       method: "post",
       url: process.env.BITLY_URL,
@@ -20,7 +24,7 @@ export default async function urlshort(
       .then((response) => response.data)
       .then((response) => response.link);
 
-    return chamada;
+    return res.json(chamada);
   } else {
     res.status(400).json("methodo invalido");
   }
