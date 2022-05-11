@@ -23,12 +23,13 @@ export function Main() {
       return AlertDialog(propriedades);
     }
 
-    const chamada = await axios.post(
-      `https://url-short-blue.vercel.app/api/api`,
-      {
-        url: LongUrl,
-      }
-    );
+    const api = process.env.PRODUCTION
+      ? process.env.PRODUCTION
+      : "http://localhost:3000/api/api";
+
+    const chamada = await axios.post(`${api}`, {
+      url: LongUrl,
+    });
 
     if (chamada.data === "Url inválida") {
       setLongUrl("digite uma url válida");
