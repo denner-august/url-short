@@ -2,27 +2,25 @@ import { Button } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { AlertDialog } from "./alert";
-import { useFetchUrl } from "../../hooks/swr";
+import { UseFetchUrl } from "../../hooks/swr";
 import copy from "copy-to-clipboard";
 import style from "./style.module.scss";
+import axios from "axios";
 
 export function Main() {
-  // const [LongUrl, setLongUrl] = useState("https://www.google.com.br/");
+  const [LongUrl, setLongUrl] = useState("");
   const [shortUrl, setShrotUrl] = useState("");
 
-  const { data, error } = useFetchUrl("");
-
-  function transformShortUrl(value: string) {
+  async function transformShortUrl(value: string) {
     if (value === "") {
       return AlertDialog();
     }
 
-    if (data) {
-      setShrotUrl(data.link);
-      copy(shortUrl);
-    }
+    // const chamada = await UseFetchUrl(LongUrl);
+    //   const chamada = await axios.post(`http://localhost:3000/${LongUrl}`);
 
-    console.log(data);
+    //   setShrotUrl(chamada);
+    //   copy(chamada);
   }
 
   return (
@@ -30,7 +28,7 @@ export function Main() {
       <span>
         <Input
           background="white"
-          // onChange={(value) => setLongUrl(value.target.value)}
+          onChange={(value) => setLongUrl(value.target.value)}
           placeholder="Digite sua url aqui"
         />
 
@@ -42,7 +40,7 @@ export function Main() {
         />
         <Button
           textColor="black"
-          // onClick={() => transformShortUrl(LongUrl)}
+          onClick={() => transformShortUrl(LongUrl)}
           colorScheme="blue"
         >
           Encurtar

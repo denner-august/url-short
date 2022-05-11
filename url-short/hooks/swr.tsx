@@ -1,19 +1,18 @@
 import axios from "axios";
-import useSWR from "swr";
 
-export function useFetchUrl(url: string) {
-  const fetcher = (url: string) => axios.post(url).then((res) => res.data);
+export async function UseFetchUrl(url: string) {
+  const chamada = await axios({
+    method: "post",
+    url: process.env.NEXT_PUBLIC_BITLY_URL,
+    headers: {
+      Authorization: `${process.env.NEXT_PUBLIC_BITLY_KEY}`,
+    },
+    data: {
+      long_url: url,
+    },
+  })
+    .then((response) => response.data)
+    .then((response) => response.link);
 
-  const { data, error } = useSWR(
-    "https://api-ssl.bitly.com/v4/shorten",
-    fetcher,
-    {
-      revalidateOnFocus: false,
-    }
-  );
-
-  return {
-    data,
-    error,
-  };
+  return chamada;
 }
