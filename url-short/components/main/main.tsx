@@ -23,8 +23,8 @@ export function Main() {
       return AlertDialog(propriedades);
     }
 
-    const api = process.env.HOME
-      ? process.env.HOME
+    const api = process.env.NEXT_PUBLIC_HOME
+      ? process.env.NEXT_PUBLIC_HOME
       : "https://url-short-blue.vercel.app/api/api";
 
     const chamada = await axios.post(`${api}`, {
